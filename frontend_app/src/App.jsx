@@ -25,6 +25,7 @@ import StudentProfile from "./components/Student/StudentProfile";
 import CompanyLogin from "./components/Company/CompanyLogin";
 import CompanyList from "./components/Admin/CompanyList";
 import AdminCompanyDetails from "./components/Admin/AdminCompanyDetails";
+import CreateJob from "./components/Company/CreateJob";
 
 const App = () => {
   return (
@@ -53,6 +54,7 @@ const App = () => {
 
           <Route path="/admin/company-details/:id" element={<AdminCompanyDetails />} />
 
+          <Route path="/company/create-job" element={<CreateJob />} />
         </Routes>
       </div>
     </Router>
