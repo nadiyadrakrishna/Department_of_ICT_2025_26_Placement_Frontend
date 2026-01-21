@@ -1,16 +1,15 @@
-// StudentAnnouncements.jsx
 import { useEffect, useState } from 'react';
 import { fetchAnnouncementsForStudent, markInterested, markNotInterested } from '../api/announcementService';
-import AnnouncementCard from './AnnouncementCard';
-import InterestButton from './InterestButton';
-import Loader from './Loader';
+import AnnouncementCard from '../components/AnnouncementCard';
+import InterestButton from '../components/InterestButton';
+import Loader from '../components/Loader';
 
 export default function StudentAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [interest, setInterest] = useState({});
-    const studentId = '6948ebac81d53d0b9d0d9963'; // Replace with actual student id logic
+    const studentId = '6948ea0081d53d0b9d0d9958'; // Replace with actual student id logic
 
     // Helper to get/set not interested announcements in localStorage
     function getNotInterestedFromStorage(studentId) {
@@ -22,7 +21,7 @@ export default function StudentAnnouncements() {
         }
     }
     function setNotInterestedToStorage(studentId, arr) {
-        localStorage.setItem(`notInterested_${studentId}`, JSON.stringify(arr));
+        localStorage.setItem(`notInterested_${studentId}, JSON.stringify(arr)`);
     }
 
     async function fetchAnnouncements() {
@@ -151,7 +150,7 @@ export default function StudentAnnouncements() {
                     })}
                 </div>
             )}
-            {error && <div className="text-red-500 mt-4">{error}</div>}
-        </div>
-    );
-}
+                {error && <div className="text-red-500 mt-4">{error}</div>}
+            </div>
+        );
+    }

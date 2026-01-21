@@ -1,4 +1,5 @@
-// Update announcement status (activate/deactivate)
+
+const API_BASE = 'http://localhost:3000/Announcement';
 export async function updateAnnouncementStatus(announcementId, is_Active, adminId) {
     const res = await fetch(`${API_BASE}/${announcementId}/status`, {
         method: 'PATCH',
@@ -10,8 +11,7 @@ export async function updateAnnouncementStatus(announcementId, is_Active, adminI
 }
 // announcementService.js
 // Handles API calls for announcements
-
-const API_BASE = 'http://localhost:3000/announcements'; // Changed port to 3000
+ // Changed port to 3000
 
 export async function fetchAnnouncementsByAdmin(adminId) {
     const res = await fetch(`${API_BASE}/admin/${adminId}`);
@@ -60,3 +60,9 @@ export async function fetchAnnouncementById(announcementId) {
     if (!res.ok) throw new Error('Failed to fetch announcement details');
     return res.json();
 }
+//
+// export async function fetchAnnouncementById(announcementId) {
+//     const res = await fetch(http://localhost:3000/announcements/${announcementId});
+//     if (!res.ok) throw new Error('Failed to fetch announcement details');
+//     return res.json();
+// 

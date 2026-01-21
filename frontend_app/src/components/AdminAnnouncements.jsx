@@ -1,8 +1,10 @@
+//AdminAnnouncements.jsx
 // AdminAnnouncements.jsx
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchAnnouncementsByAdmin, createAnnouncement, updateAnnouncementStatus } from '../api/announcementService';
-import AnnouncementCard from './AnnouncementCard';
-import Loader from './Loader';
+import AnnouncementCard from '../components/AnnouncementCard';
+import Loader from '../components/Loader';
 
 export default function AdminAnnouncements() {
     const [announcements, setAnnouncements] = useState([]);
@@ -10,7 +12,9 @@ export default function AdminAnnouncements() {
     const [error, setError] = useState('');
     const [form, setForm] = useState({ Title: '', Message: '', Deadline: '' });
     const [creating, setCreating] = useState(false);
-    const adminId = '694943222800f0db477537dd'; // Replace with actual admin id logic
+    const adminId = '66c8f0d2e91c3a8f0e7a12ab'; // Replace with actual admin id logic
+
+    // const navigate = useNavigate();
 
     useEffect(() => {
         fetchAnnouncements();
@@ -21,6 +25,7 @@ export default function AdminAnnouncements() {
         setError('');
         try {
             const data = await fetchAnnouncementsByAdmin(adminId);
+            console.log(data);
             setAnnouncements(data.announcements || []);
         } catch (err) {
             setError(err.message);
@@ -91,33 +96,37 @@ export default function AdminAnnouncements() {
                 <div>
                     {announcements.length === 0 && <div className="text-gray-500">No announcements found.</div>}
                     {announcements.map(a => (
-                        <AnnouncementCard
-                            key={a.id || a._id}
-                            title={a.Title}
-                            message={a.Message}
-                            deadline={a.Deadline}
-                            isActive={a.is_Active}
-                            statusAction={a.is_Active ? (
-                                <button
-                                    className="ml-2 px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition"
-                                    onClick={async (e) => {
-                                        e.stopPropagation();
-                                        try {
-                                            await updateAnnouncementStatus(a.id || a._id, false, adminId);
-                                            fetchAnnouncements();
-                                        } catch (err) {
-                                            setError(err.message);
-                                        }
-                                    }}
-                                >
-                                    Set Inactive
-                                </button>
-                            ) : (
-                                // <span className="ml-2 px-3 py-1 bg-gray-300 text-gray-600 rounded text-xs">Inactive</span>
-                                null
-                            )}
-                        />
-                    ))}
+                        <div key={a.id || a._id}>
+                            <AnnouncementCard
+                                title={a.Title}
+                                message={a.Message}
+                                deadline={a.Deadline}
+                                isActive={a.is_Active}
+                                statusAction={a.is_Active ? (
+                                    <button
+                                        className="ml-2 px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition"
+                                        onClick={async (e) => {
+                                            e.stopPropagation();
+                                            try {
+                                                await updateAnnouncementStatus(a.id || a._id, false, adminId);
+                                                fetchAnnouncements();
+                                            } catch (err) {
+                                                setError(err.message);
+                                            }
+                                        }}
+                                    >
+                                        Set Inactive
+                                    </button>
+                                ) : null}
+                            />
+                            <button
+                                // onClick={() => navigate(`/admin/announcements/${a.id || a._id}/students`)}
+                                className="ml-2 px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition"
+                            >
+                                View Interested Students
+                            </button>
+                        </div>
+                    ))}<br></br>
                 </div>
             )}
             {error && <div className="text-red-500 mt-4">{error}</div>}

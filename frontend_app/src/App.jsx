@@ -6,6 +6,7 @@ import CompanyRegistration from "./components/CompanyRegistration"
 import StudentProfile from "./components/Student/StudentProfile"
 import StudentAnnouncements from "./components/StudentAnnouncements"
 
+
 const App=()=>{
   return (
     // <Achievements/>
@@ -13,6 +14,8 @@ const App=()=>{
     // <CompanyRegistration/>
     // <CompanyProfile/>
     // <StudentProfile/>
+    // <AdminAnnouncements/>
+    // <StudentAnnouncements/>
     // <AdminAnnouncements/>
     <StudentAnnouncements/>
 
